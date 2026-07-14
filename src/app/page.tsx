@@ -1,65 +1,251 @@
 import Image from "next/image";
+import Link from "next/link";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import ReservationButton from "@/components/ReservationButton";
+import { siteConfig } from "@/lib/site";
+
+const dishes = [
+  {
+    name: "Ember-roasted beef",
+    detail: "smoked aubergine · preserved lemon · lamb jus",
+    image: "/images/signature-beef.jpg",
+  },
+  {
+    name: "Aegean prawn",
+    detail: "charred pepper · fennel · citrus oil",
+    image: "/images/signature-seafood.jpg",
+  },
+  {
+    name: "Midnight cacao",
+    detail: "sour cherry · burnt honey · cocoa nib",
+    image: "/images/signature-dessert.jpg",
+  },
+] as const;
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <main id="main-content" className="overflow-hidden bg-[#f7eadf] text-[#261419] page-enter">
+      <Navbar />
+
+      <section className="relative min-h-[100svh] bg-[#241319] text-white">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/images/hero-restaurant.jpg"
+          alt="Warm, contemporary dining room at Ember"
+          fill
           priority
+          sizes="100vw"
+          className="object-cover object-center"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(23,10,16,0.9)_0%,rgba(34,13,18,0.6)_48%,rgba(34,13,18,0.18)_100%)]" />
+        <div className="sunset-glow absolute -bottom-36 -left-28 h-[30rem] w-[30rem] rounded-full opacity-80 blur-3xl" />
+
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1440px] items-end px-5 pb-16 pt-36 sm:px-8 sm:pb-20 lg:px-12 lg:pb-24">
+          <div className="max-w-5xl">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.32em] text-[#ffc09a]">
+              Modern Mediterranean · Istanbul
+            </p>
+            <h1 className="max-w-4xl font-serif text-[clamp(4.6rem,11vw,10.5rem)] font-medium leading-[0.73] tracking-[-0.055em]">
+              Dinner in the
+              <span className="block italic text-[#ff9a62]">last light.</span>
+            </h1>
+            <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center">
+              <ReservationButton
+                className="inline-flex w-fit items-center rounded-full bg-[#ff8a52] px-7 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#241319] transition-transform hover:-translate-y-1"
+              >
+                Book your table <span className="ml-4 text-lg">↗</span>
+              </ReservationButton>
+              <p className="max-w-xs text-sm leading-6 text-white/60">
+                An evening menu guided by open fire, coastal produce and the rhythm of the season.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="story" className="relative px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+        <div className="mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+          <div>
+            <p className="section-label">Our philosophy</p>
+            <p className="mt-8 max-w-sm text-sm leading-7 text-[#6f5555]">
+              At Ember, dinner follows the sun. We cook with flame, source from the coast and let every ingredient arrive at its own pace.
+            </p>
+          </div>
+          <h2 className="font-serif text-[clamp(3.5rem,7vw,7rem)] leading-[0.9] tracking-[-0.045em]">
+            Familiar flavours,
+            <span className="block italic text-[#c84f30]">seen in a new light.</span>
+          </h2>
+        </div>
+      </section>
+
+      <section id="menu" className="bg-[#201218] px-5 py-24 text-[#f8eadf] sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="flex flex-col gap-8 border-b border-white/15 pb-12 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="section-label text-[#ff9a62]">From the evening menu</p>
+              <h2 className="mt-6 font-serif text-6xl leading-none tracking-[-0.04em] sm:text-7xl lg:text-8xl">
+                Three signatures.
+              </h2>
+            </div>
+            <Link href="/menu" className="text-xs font-bold uppercase tracking-[0.2em] text-white/70 hover:text-[#ff9a62]">
+              Discover the full menu ↗
+            </Link>
+          </div>
+
+          <div className="mt-12 grid gap-10 md:grid-cols-3">
+            {dishes.map((dish, index) => (
+              <article key={dish.name} className="group">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#3b2428]">
+                  <Image
+                    src={dish.image}
+                    alt={dish.name}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <span className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/35 bg-black/20 text-xs backdrop-blur">
+                    0{index + 1}
+                  </span>
+                </div>
+                <div className="border-b border-white/15 py-6">
+                  <div>
+                    <h3 className="font-serif text-3xl">{dish.name}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/45">{dish.detail}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" className="grid bg-[#f7eadf] lg:min-h-[52rem] lg:grid-cols-2">
+        <div className="relative min-h-[34rem] lg:min-h-full">
+          <Image
+            src="/images/chef-at-work.jpg"
+            alt="Chef preparing a seasonal plate in the Ember kitchen"
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2a1117]/45 to-transparent" />
+        </div>
+        <div className="flex items-center px-5 py-20 sm:px-12 lg:px-20">
+          <div className="max-w-xl">
+            <p className="section-label">Behind the flame</p>
+            <h2 className="mt-7 font-serif text-6xl leading-[0.9] tracking-[-0.045em] sm:text-7xl">
+              Season-led.
+              <span className="block italic text-[#c84f30]">Fire-finished.</span>
+            </h2>
+            <p className="mt-8 text-base leading-8 text-[#6f5555]">
+              Our kitchen begins with what is best today. Local vegetables meet line-caught fish, slow-aged meats and the quiet theatre of an open hearth.
+            </p>
+            <div className="mt-10 grid grid-cols-2 gap-6 border-t border-[#261419]/15 pt-8">
+              <div>
+                <strong className="font-serif text-4xl font-medium">12</strong>
+                <p className="mt-2 text-xs uppercase tracking-[0.18em] text-[#7d5d5b]">Seasonal plates</p>
+              </div>
+              <div>
+                <strong className="font-serif text-4xl font-medium">7</strong>
+                <p className="mt-2 text-xs uppercase tracking-[0.18em] text-[#7d5d5b]">Local producers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#cc5434] p-3 sm:p-5">
+        <div className="grid auto-rows-[18rem] gap-3 sm:grid-cols-2 sm:auto-rows-[28rem] lg:grid-cols-4">
+          {[
+            ["/images/interior-red.jpg", "Ember's warm red dining room"],
+            ["/images/dish-salmon.jpg", "Seasonal salmon plate"],
+            ["/images/interior-evening.jpg", "Elegant evening dining room"],
+            ["/images/terrace-sea.jpg", "Mediterranean terrace by the sea"],
+          ].map(([src, alt], index) => (
+            <div key={src} className={`group relative overflow-hidden ${index === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}>
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover transition duration-700 group-hover:scale-105"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid bg-[#f7eadf] lg:grid-cols-2">
+        <div className="relative min-h-[38rem] lg:min-h-[52rem]">
+          <Image src="/images/dish-seasonal.jpg" alt="Seasonal tasting menu plate at Ember" fill sizes="(min-width:1024px) 50vw,100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#261419]/35 to-transparent" />
+        </div>
+        <div className="flex items-center px-5 py-20 sm:px-12 lg:px-20">
+          <div className="max-w-xl">
+            <p className="section-label">The sunset tasting</p>
+            <h2 className="mt-7 font-serif text-6xl leading-[0.88] tracking-[-0.045em] sm:text-8xl">Seven moments.<span className="block italic text-[#c84f30]">One evening.</span></h2>
+            <p className="mt-8 text-sm leading-7 text-[#6f5555]">A seven-course journey through the coast, the garden and the open hearth. Available for the whole table.</p>
+            <div className="mt-10 divide-y divide-[#261419]/15 border-y border-[#261419]/15 text-sm">
+              <div className="flex justify-between py-5"><span>Sunset Tasting Menu</span><strong>$95</strong></div>
+              <div className="flex justify-between py-5"><span>Wine Pairing</span><strong>$55</strong></div>
+              <div className="flex justify-between py-5"><span>Non-Alcoholic Pairing</span><strong>$32</strong></div>
+            </div>
+            <Link href="/menu" className="mt-8 inline-block border-b border-[#261419] pb-1 text-xs font-bold uppercase tracking-[0.18em]">Explore the full menu ↗</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#201218] px-5 py-24 text-white sm:px-8 lg:px-12 lg:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]"><p className="section-label text-[#ff9a62]">Gather at Ember</p><div><h2 className="font-serif text-6xl leading-[0.88] tracking-[-0.045em] sm:text-8xl">Private evenings,<span className="block italic text-[#ff9a62]">made personal.</span></h2><p className="mt-7 max-w-2xl text-sm leading-7 text-white/50">Chef’s tables, private celebrations and full-restaurant events with menus created for the occasion.</p></div></div>
+          <div className="mt-14 grid gap-4 md:grid-cols-3">{[["Chef’s table","10 guests"],["Private room","24 guests"],["Full restaurant","80 guests"]].map(([title,capacity], index) => <Link href="/private-dining" key={title} className="group border border-white/15 p-7 transition-colors hover:bg-[#ff8652] hover:text-[#261419]"><span className="text-xs text-[#ff9a62] group-hover:text-[#261419]">0{index + 1}</span><h3 className="mt-20 font-serif text-4xl">{title}</h3><p className="mt-3 text-xs uppercase tracking-[0.18em] opacity-55">Up to {capacity}</p></Link>)}</div>
+        </div>
+      </section>
+
+      <section className="bg-[#f7eadf] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-[1440px]"><div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"><div><p className="section-label">Follow the evening</p><h2 className="mt-5 font-serif text-6xl leading-none sm:text-7xl">@ember.istanbul</h2></div><a href={siteConfig.instagramUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-[0.18em]">Follow on Instagram ↗</a></div><div className="mt-10 grid h-[28rem] grid-cols-2 gap-3 sm:grid-cols-4">{[["/images/interior-red.jpg","Dining room"],["/images/signature-seafood.jpg","Aegean prawn"],["/images/chef-at-work.jpg","In the kitchen"],["/images/signature-dessert.jpg","Dessert"]].map(([src,alt]) => <Link href="/gallery" key={src} className="group relative overflow-hidden"><Image src={src} alt={alt} fill sizes="25vw" className="object-cover transition duration-700 group-hover:scale-105" /></Link>)}</div></div>
+      </section>
+
+      <section id="reserve" className="relative isolate overflow-hidden bg-[#ff8652] px-5 py-28 text-center text-[#261419] sm:px-8 lg:py-40">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_20%,#ffd39e_0,transparent_30%),radial-gradient(circle_at_82%_75%,#bb2e38_0,transparent_38%)] opacity-80" />
+        <p className="text-xs font-bold uppercase tracking-[0.3em]">Your evening starts here</p>
+        <h2 className="mx-auto mt-7 max-w-5xl font-serif text-[clamp(4rem,9vw,9rem)] leading-[0.78] tracking-[-0.055em]">
+          Meet us at
+          <span className="block italic text-[#6e1c2c]">golden hour.</span>
+        </h2>
+        <ReservationButton
+          className="mt-12 inline-flex rounded-full bg-[#211218] px-8 py-5 text-xs font-bold uppercase tracking-[0.22em] text-white transition-transform hover:-translate-y-1"
+        >
+          Request a table ↗
+        </ReservationButton>
+      </section>
+
+      <section id="visit" className="grid bg-[#f7eadf] lg:grid-cols-2">
+        <div className="px-5 py-20 sm:px-12 lg:px-20 lg:py-28">
+          <p className="section-label">Visit Ember</p>
+          <h2 className="mt-7 max-w-xl font-serif text-6xl leading-[0.9] tracking-[-0.045em] sm:text-7xl">
+            An evening above the Bosphorus.
+          </h2>
+          <p className="mt-8 text-base leading-8 text-[#6f5555]">
+            42 Sunset Avenue, Karaköy, Istanbul<br />Tuesday–Sunday, from 18:00
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <a href={siteConfig.mapsUrl} target="_blank" rel="noreferrer" className="mt-8 inline-block border-b border-[#261419] pb-1 text-xs font-bold uppercase tracking-[0.2em]">
+            Open in maps ↗
           </a>
         </div>
-      </main>
-    </div>
+        <div className="min-h-[30rem] bg-[#261419] p-3 sm:p-5">
+          <iframe
+            title="Ember restaurant location in Karaköy, Istanbul"
+            src={siteConfig.mapsEmbedUrl}
+            className="h-full min-h-[30rem] w-full border-0 grayscale-[0.25]"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      </section>
+
+      <Footer />
+    </main>
   );
 }

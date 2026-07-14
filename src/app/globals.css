@@ -1,26 +1,187 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7eadf;
+  --foreground: #261419;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  scrollbar-color: #c84f30 #201218;
+  scroll-padding-top: 7rem;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+section[id] {
+  scroll-margin-top: 7rem;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
+
+::selection {
+  background: #ff9a62;
+  color: #261419;
+}
+
+:focus-visible {
+  outline: 2px solid #ff9a62;
+  outline-offset: 5px;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #a44431;
+}
+
+.sunset-glow {
+  background: radial-gradient(circle, #ff6a3d 0%, #b52e46 45%, transparent 72%);
+  animation: sunset-breathe 6s ease-in-out infinite;
+}
+
+.page-enter {
+  animation: page-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes section-reveal {
+  from {
+    opacity: 0.45;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  main > section:not(:first-of-type) {
+    animation: section-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 28%;
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 180ms ease-out both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 320ms ease-out both page-enter;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  header,
+  footer,
+  .print-hidden,
+  body > button {
+    display: none !important;
+  }
+
+  html,
+  body,
+  main,
+  main > section {
+    background: white !important;
+    color: black !important;
+  }
+
+  main > section:first-of-type,
+  main > section:last-of-type,
+  main img {
+    display: none !important;
+  }
+
+  main > section {
+    animation: none !important;
+    break-inside: avoid;
+  }
+
+  p,
+  span {
+    color: #333 !important;
+  }
+}
+
+@keyframes sunset-breathe {
+  0%, 100% {
+    transform: scale(0.92);
+    opacity: 0.62;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.88;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .page-enter {
+    animation: none !important;
+  }
 }

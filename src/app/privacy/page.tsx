@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = { title: "Privacy", robots: { index: false, follow: true } };
+export default function PrivacyPage() { return <main id="main-content" className="bg-[#201218] text-white page-enter"><Navbar /><article className="mx-auto max-w-3xl px-5 pb-28 pt-40 sm:px-8"><p className="text-xs font-bold uppercase tracking-[0.3em] text-[#ff9a62]">Privacy</p><h1 className="mt-6 font-serif text-7xl">Your privacy.</h1><div className="mt-12 space-y-8 text-sm leading-8 text-white/55"><p>This is a portfolio concept website. It does not store reservation details or process payments.</p><section><h2 className="font-serif text-3xl text-white">Reservations</h2><p className="mt-3">Reservation details are passed directly to WhatsApp when you choose to continue. WhatsApp’s own privacy terms then apply.</p></section><section><h2 className="font-serif text-3xl text-white">Maps and external links</h2><p className="mt-3">The site embeds Google Maps and links to third-party services. Those providers may process technical data under their own policies.</p></section><section><h2 className="font-serif text-3xl text-white">Contact</h2><p className="mt-3">Questions can be sent to <a className="text-[#ff9a62]" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.</p></section></div></article><Footer /></main>; }
