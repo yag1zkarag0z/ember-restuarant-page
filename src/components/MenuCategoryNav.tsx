@@ -25,7 +25,7 @@ export default function MenuCategoryNav({
   }
 
   return (
-    <div className="sticky top-20 z-30 border-b border-[#261419]/15 bg-[#f7eadf]/95 px-4 py-3 text-[#261419] shadow-[0_8px_24px_rgba(38,20,25,0.06)] backdrop-blur sm:top-24 sm:px-8 lg:top-0 lg:px-12 print-hidden">
+    <div className="border-b border-[#261419]/15 bg-[#f7eadf] px-4 py-3 text-[#261419] shadow-[0_8px_24px_rgba(38,20,25,0.06)] sm:px-8 lg:px-12 print-hidden">
       <nav aria-label={label} className="mx-auto max-w-[1440px]">
         <div className="flex items-center gap-3 lg:hidden">
           <label htmlFor="menu-category" className="sr-only">

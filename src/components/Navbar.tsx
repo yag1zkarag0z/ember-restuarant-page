@@ -74,7 +74,8 @@ export default function Navbar() {
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href={alternatePath}
-            className="hidden rounded-full border border-white/25 px-3 py-3 text-[0.62rem] font-bold tracking-[0.18em] transition-colors hover:bg-white hover:text-[#241319] sm:block"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/30 text-[0.62rem] font-bold tracking-[0.12em] transition-colors hover:bg-white hover:text-[#241319]"
+            aria-label={isTurkish ? "Switch to English" : "Türkçeye geç"}
           >
             {isTurkish ? "EN" : "TR"}
           </Link>
@@ -140,15 +141,8 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className="grid gap-3 border-t border-white/15 pt-5">
-              <Link
-                href={alternatePath}
-                onClick={() => setIsOpen(false)}
-                className="text-center text-xs font-bold uppercase tracking-[0.2em] text-white/70"
-              >
-                {isTurkish ? "English" : "Türkçe"}
-              </Link>
-              <ReservationButton className="rounded-full bg-[#ff8652] px-5 py-4 text-xs font-bold uppercase tracking-[0.16em] text-[#261419]">
+            <div className="border-t border-white/15 pt-5">
+              <ReservationButton className="w-full rounded-full bg-[#ff8652] px-5 py-4 text-xs font-bold uppercase tracking-[0.16em] text-[#261419]">
                 {isTurkish ? "Masa ayırt" : "Book now"}
               </ReservationButton>
             </div>
