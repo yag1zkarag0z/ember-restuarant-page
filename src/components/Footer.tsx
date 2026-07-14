@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site";
 export default function Footer({ locale = "en" }: { locale?: "en" | "tr" }) {
   const isTurkish = locale === "tr";
   return (
-    <footer className="bg-[#150d12] px-5 pb-24 pt-16 text-[#f8eadf] sm:px-8 md:pb-8 lg:px-12">
+    <footer className="bg-[#150d12] px-5 pb-8 pt-16 text-[#f8eadf] sm:px-8 lg:px-12">
       <div className="mx-auto grid max-w-[1440px] gap-12 border-b border-white/15 pb-16 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
         <div>
           <Brand href={isTurkish ? "/tr" : "/"} />
