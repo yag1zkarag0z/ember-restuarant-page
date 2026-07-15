@@ -16,7 +16,7 @@ const dishes = [
 
 export default function TurkishHomePage() {
   return (
-    <main id="main-content" lang="tr" className="overflow-hidden bg-[#f7eadf] text-[#261419] page-enter">
+    <main id="main-content" lang="tr" className="overflow-x-hidden bg-[#f7eadf] text-[#261419] page-enter">
       <Navbar />
 
       <section className="relative min-h-[100svh] bg-[#241319] text-white">

@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Brand from "@/components/Brand";
 import ReservationButton from "@/components/ReservationButton";
+
+const subscribeToHydration = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 const englishLinks = [
   ["Story", "/story"],
@@ -33,6 +38,11 @@ const localePairs: Record<string, string> = {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
   const pathname = usePathname();
   const isTurkish = pathname.startsWith("/tr");
   const links = isTurkish ? turkishLinks : englishLinks;
@@ -57,9 +67,9 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  return (
+  const navbar = (
     <>
-      <header className="fixed inset-x-0 top-0 z-[80] border-b border-white/15 bg-[#160c11]/90 text-white shadow-[0_8px_30px_rgba(18,9,14,0.18)] backdrop-blur-xl lg:absolute lg:z-50 lg:bg-transparent lg:shadow-none lg:backdrop-blur-none">
+      <header className="fixed inset-x-0 top-0 z-[80] w-full bg-transparent text-white">
         <nav className="mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-3 px-4 sm:h-24 sm:px-8 lg:px-12">
         <Brand href={isTurkish ? "/tr" : "/"} />
 
@@ -151,4 +161,6 @@ export default function Navbar() {
       )}
     </>
   );
+
+  return isHydrated ? createPortal(navbar, document.body) : navbar;
 }
